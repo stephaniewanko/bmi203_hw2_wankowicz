@@ -1,5 +1,26 @@
 from .utils import Atom, Residue, ActiveSite
 
+#functions for similarity metrics
+
+'''
+Bio.PDB Package Citation
+
+Bio.PDB does XXXX
+
+'''
+from Bio.PDB import *
+from Bio.PDB.PDBParser import PDBParser
+import sys
+import numpy as np
+import math
+import os
+import glob
+import itertools
+import re
+import pickle
+
+
+
 def compute_similarity(site_a, site_b):
     """
     Compute the similarity between two given ActiveSite instances.
