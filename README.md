@@ -1,7 +1,6 @@
 # HW2 Skeleton
 
-[![Build
-Status](https://travis-ci.org/stephaniewanko/bmi203_hw2_wankowicz.svg?branch=master)](https://travis-ci.org/stephaniewanko/bmi203_hw2_wankowicz)
+[![Build Status](https://travis-ci.org/stephaniewanko/bmi203_hw2_wankowicz.svg?branch=master)](https://travis-ci.org/stephaniewanko/bmi203_hw2_wankowicz)
 
 Skeleton for clustering project.
 
