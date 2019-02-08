@@ -2,6 +2,17 @@ from hw2skeleton import cluster
 from hw2skeleton import io
 import os
 
+
+#testing out the paritioning algorithm
+os.chdir('/Users/stephaniewankowicz/Dropbox/BMI_203/HW_2_Clustering/') #this is where your pickle is located. Ours is located where our PDBs are located.
+content = pickle.load(open('PDB_HW2.pickle', "rb"))
+cluster1,cluster2,cluster3=k_median(content)
+
+print(content.keys())
+print(replace_values(cluster2, content))
+
+
+
 def test_similarity():
     filename_a = os.path.join("data", "276.pdb")
     filename_b = os.path.join("data", "4629.pdb")
