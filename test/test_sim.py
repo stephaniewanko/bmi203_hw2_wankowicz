@@ -1,4 +1,4 @@
-pip freeze > requirements.txt
+#pip freeze > requirements.txt
 
 from hw2skeleton import *
 from hw2skeleton import io
