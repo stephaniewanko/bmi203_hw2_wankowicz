@@ -44,7 +44,7 @@ def similarity_metric(file_location): ### PUT THIS ALL TOGETHER
         centroid_x, centroid_y,centroid_z = np.mean(x_res), np.mean(y_res), np.mean(z_res) #finding the centroid of the enzyme binding space
         dist=[]
         for b in residues2: #for each residue in each PDB, calculating the eucledian distance between the CA on each residue and the centriod
-        dist.append(math.sqrt(((centroid_x-(b["CA"].get_vector()[0]))**2)+((centroid_y-(b["CA"].get_vector()[1]))**2)+((centroid_z-(b["CA"].get_vector()[2]))**2)))
+            dist.append(math.sqrt(((centroid_x-(b["CA"].get_vector()[0]))**2)+((centroid_y-(b["CA"].get_vector()[1]))**2)+((centroid_z-(b["CA"].get_vector()[2]))**2)))
         PDB_3D_dist=np.mean(dist) #this is the distance or space measurement for this PDBs enzyme active site.
         #print(PDB_3D_dist)
         sim_dict[PDB_3D_dist]=name #adding the distance metric to a dictionary corresponding to the name of the PDB 
