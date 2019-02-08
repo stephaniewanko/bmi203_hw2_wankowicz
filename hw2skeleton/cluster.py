@@ -1,4 +1,4 @@
-from .utils import Atom, Residue, ActiveSite
+#from .utils import Atom, Residue, ActiveSite I did not use any of these functions. 
 
 #pip freeze > requirements.txt #Miriam Trick
 #functions for similarity metrics
