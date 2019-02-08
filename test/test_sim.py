@@ -2,6 +2,8 @@
 
 from hw2skeleton import *
 from hw2skeleton import io
+sys.path.append('..//')
+from example import cluster
 import os
 
 
