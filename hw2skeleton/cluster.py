@@ -37,7 +37,7 @@ def similarity_metric(file_location): ### PUT THIS ALL TOGETHER
         y_res=[]
         z_res=[]
         residues2,residues=itertools.tee(residues) #this is storing 2 generator objects. I know this is not great spacewise, but in most PDBs there are very few residues
-            for a in residues: # we are extracting the x,y,z location of the alpha carbon for each residue.
+        for a in residues: # we are extracting the x,y,z location of the alpha carbon for each residue.
             x_res.append(a["CA"].get_vector()[0]) 
             y_res.append(a["CA"].get_vector()[1])
             z_res.append(a["CA"].get_vector()[2])
