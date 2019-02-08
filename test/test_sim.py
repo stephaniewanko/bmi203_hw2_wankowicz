@@ -11,3 +11,5 @@ import os
 print('testing!')
 #testing_test_function(2)
 similarity_metric('./data/')
+
+assert 1==1
