@@ -1,10 +1,10 @@
 from .utils import Atom, Residue, ActiveSite
 
-$ pip freeze > requirements.txt #Miriam Trick
+#pip freeze > requirements.txt #Miriam Trick
 #functions for similarity metrics
 
 '''
-Bio.PDB Package Citation
+Bio.PDB Package: Hamelryck, T., Manderick, B. (2003) PDB parser and structure class implemented in Python. Bioinformatics 19: 2308–2310
 
 Bio.PDB does XXXX
 
@@ -27,30 +27,28 @@ def similarity_metric(file_location): ### PUT THIS ALL TOGETHER
     PDB_files=glob.glob(file_location+"*.pdb") #grabbing all of the files within the PDB folder
     p = PDBParser(PERMISSIVE=1)
 sim_dict = {}
-for i in PDB_files:
+for i in PDB_files: #we are iterating over each PDB file in our directory
     name=(re.findall('\d+.pdb$', i)[0])
-    print(name)
     structure = p.get_structure(i, i) #grabbing biopython structure (generator object)
-    model=structure[0] #transitioning to model ????
+    model=structure[0] #this is extracting the model. Some structures have multiple models, but all of our structures only have one model
     residues=model.get_residues() #getting each residue. For my similarity metric, I am grabbing the coordinates of the alphaCarbon atom
     x_res=[]
     y_res=[]
     z_res=[]
     residues2,residues=itertools.tee(residues) #this is storing 2 generator objects. I know this is not great spacewise, but in most PDBs there are very few residues
-    for a in residues:
-        x_res.append(a["CA"].get_vector()[0])
+    for a in residues: # we are extracting the x,y,z location of the alpha carbon for each residue.
+        x_res.append(a["CA"].get_vector()[0]) 
         y_res.append(a["CA"].get_vector()[1])
         z_res.append(a["CA"].get_vector()[2])
-    centroid_x, centroid_y,centroid_z = np.mean(x_res), np.mean(y_res), np.mean(z_res)
+    centroid_x, centroid_y,centroid_z = np.mean(x_res), np.mean(y_res), np.mean(z_res) #finding the centroid of the enzyme binding space
     dist=[]
-    for b in residues2:
-        #print(i)
+    for b in residues2: #for each residue in each PDB, calculating the eucledian distance between the CA on each residue and the centriod
         dist.append(math.sqrt(((centroid_x-(b["CA"].get_vector()[0]))**2)+((centroid_y-(b["CA"].get_vector()[1]))**2)+((centroid_z-(b["CA"].get_vector()[2]))**2)))
-    PDB_3D_dist=np.mean(dist) #put this into a dictionary/hash table
-    print(PDB_3D_dist)
-    sim_dict[PDB_3D_dist]=name
-print(sim_dict)
-with open('PDB_HW2_sim_metric.pickle', 'wb') as handle:
+    PDB_3D_dist=np.mean(dist) #this is the distance or space measurement for this PDBs enzyme active site.
+    #print(PDB_3D_dist)
+    sim_dict[PDB_3D_dist]=name #adding the distance metric to a dictionary corresponding to the name of the PDB 
+#print(sim_dict)
+with open('PDB_HW2_sim_metric.pickle', 'wb') as handle: #exporting this dictionary as a pickle file 
     pickle.dump(sim_dict, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
 ##################PARTITIONING ALGO################################
