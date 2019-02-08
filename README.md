@@ -37,25 +37,26 @@ The main file that you will need to modify is `cluster.py` and the corresponding
 
 To use the package, first run
 
-```
+conda create -n exampleenv python=3
+source activate exampleenv
+
 conda install --yes --file requirements.txt
-```
 
 to install all the dependencies in `requirements.txt`. Then the package's
 main function (located in `hw2skeleton/__main__.py`) can be run as
 follows
 
-```
+
 python -m hw2skeleton -P data test.txt
-```
+
 
 ## testing
 
 Testing is as simple as running
 
-```
+
 python -m pytest
-```
+
 
 from the root directory of this project.
 
