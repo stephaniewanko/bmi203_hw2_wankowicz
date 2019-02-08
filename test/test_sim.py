@@ -3,7 +3,7 @@
 from hw2skeleton import *
 from hw2skeleton import io
 import sys
-sys.path.append('../hw2skeleton/')
+sys.path.append('hw2skeleton/')
 from hw2skeleton import cluster
 import os
 
