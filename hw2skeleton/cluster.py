@@ -158,20 +158,20 @@ At the end of the clustering algorithm, there is a function that will return the
 '''
 
 def mediod_link(i,j):
-'''
-The medido link looks at the median eucledian distance between two clusters
-i and j should be lists of values that correspond with a cluster
-Input: 2 list of similarity metrics
-Output: The eucledian distance between the medians of both lists
-'''
+    '''
+    The medido link looks at the median eucledian distance between two clusters
+    i and j should be lists of values that correspond with a cluster
+    Input: 2 list of similarity metrics
+    Output: The eucledian distance between the medians of both lists
+    '''
     dist=math.sqrt((np.median(j)-np.median(i))**2)
     return(dist)
 
 def dict_to_list(input_pickle):
-'''
-Since we take in a dictionary, we want to convert that dictionary to a list of the similarity metrics to do the clustering.
-At the end, we will use the dictionary to hook things back up.
-'''
+    '''
+    Since we take in a dictionary, we want to convert that dictionary to a list of the similarity metrics to do the clustering.
+    At the end, we will use the dictionary to hook things back up.
+    '''
     dist_metrics=list(input_pickle.keys()) #putting the keys into a list
     return dist_metrics #returning that list
 
