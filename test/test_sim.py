@@ -8,11 +8,10 @@ import os
 
 print('Starting to test!')
 #testing_test_function(2)
-def test_similarity(location):
+def test_similarity(sim_dictionary):
     '''
     We are going to run the similarity algorithm, and then make sure that the similarity metric for pdb 47023 is equal to 21.028781603576693'.
-    '''
-    sim_dictionary=similarity_metric(location) #make sure this is returning a dictionary
+    ''' #make sure this is returning a dictionary
     for key, value in sim_dictionary.items():
         if value=='47023.pdb':
             key_key=key
@@ -42,12 +41,14 @@ def test_hierarchical_clustering(content):
 
 content=similarity_metric('./data/')
 print('Testing Similarity')
-test_similarity('./data')
+test_similarity(content)
 
 #running the similarity metric to get the dictionary
 test_partition_clustering(content)
 test_hierarchical_clustering(content)
 
 print('Done Testing!')
-
+def test_placeholder():
+    pass
+test_placeholder
 assert [1]==[1]
