@@ -194,11 +194,11 @@ def most_sim_clusters(master_list):
                         min=min_tmp #assign min value to the temp if the min is empty
                         i_min=i
                         j_min=j
-                     elif min_tmp<min: #for each mediod linkage value, if it is less than the stored min value, reassign min value, i & j
+                    elif min_tmp<min: #for each mediod linkage value, if it is less than the stored min value, reassign min value, i & j
                         min=min_tmp
                         i_min=i
                         j_min=j
-                     else: #if the mediod value not smaller than min, keep looping through
+                    else: #if the mediod value not smaller than min, keep looping through
                         continue
 return i_min, j_min #return the lists that have the minimum mediod linkage
 
