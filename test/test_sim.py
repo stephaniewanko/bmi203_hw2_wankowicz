@@ -10,11 +10,11 @@ import os
 
 print('testing!')
 #testing_test_function(2)
-ef test_similarity(location):
+def test_similarity(location):
     '''
     We are going to run the similarity algorithm, and then make sure that the similarity metric for pdb 47023 is equal to 21.028781603576693'.
     '''
-    sim_dictionary=partition_algo.similarity_metric(location) #make sure this is returning a dictionary
+    sim_dictionary=cluster.similarity_metric(location) #make sure this is returning a dictionary
     for key, value in sim_dict.items():
         if value=='47023.pdb':
             key_key=key
@@ -30,7 +30,7 @@ def test_partition_clustering(similarity_dictionary):
     We have set the random.seed() to 40 to ensure we get the same clusters.
     '''
 
-    cluster1,cluster2,cluster3=partition_algo.k_median(similarity_dictionary)
+    cluster1,cluster2,cluster3=cluster.k_median(similarity_dictionary)
     assert len(cluster1) == 10
 
 content = pickle.load(open('PDB_HW2.pickle', "rb"))
