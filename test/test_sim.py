@@ -8,7 +8,7 @@ import os
 
 print('Starting to test!')
 #testing_test_function(2)
-sys.path.append('bmi203_hw2_wankowicz/data/')
+sys.path.append('/home/travis/build/stephaniewanko/bmi203_hw2_wankowicz/data/')
 content=similarity_metric()
 print(content)
 print('Testing Similarity')
