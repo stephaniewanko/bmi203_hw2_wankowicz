@@ -39,7 +39,7 @@ def test_hierarchical_clustering(content):
     assert len(test_cluster) == 2
 
 sys.path.append('data/')
-content=similarity_metric('data/')
+content=similarity_metric()
 print(content)
 print('Testing Similarity')
 test_similarity(content)
