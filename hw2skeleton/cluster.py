@@ -225,17 +225,16 @@ def hier_cluster(input_dict,num_clusters):
         OUTPUT: Dictionary with the number of clusters:list of clusters
         '''
 
-master_list=dict_to_list(input_dict) #this is function that will convert the input dictionary to a list
-output_dict={} #we are going to store the number of clusters and cluster values into a dictionary
-clusters = [[master_list[i]] for i in range(len(master_list))] #this is going to split every item in the master list into their own cluster since we are doing agglomerative clsutering.
-cluster_num=len(clusters) #we need to determine the number of clusters that we start with
-while cluster_num>num_clusters: #we are iterating over this until we have combined all of the values into one cluster
-    output_dict[cluster_num]=clusters #we are going to store the number of clusters and cluster values into a dictionary
-    i,j=most_sim_clusters(clusters) #determining which clusters are closest
-    clusters=merging_clusters(i,j,clusters) #merging the two closest clusters together
-    cluster_num=len(clusters) # we want to keep track of the number of cluster we have. This will determine when the while loop stops.
-print(output_dict)
-return output_dict
+    master_list=dict_to_list(input_dict) #this is function that will convert the input dictionary to a list
+    output_dict={} #we are going to store the number of clusters and cluster values into a dictionary
+    clusters = [[master_list[i]] for i in range(len(master_list))] #this is going to split every item in the master list into their own cluster since we are doing agglomerative clsutering.
+    cluster_num=len(clusters) #we need to determine the number of clusters that we start with
+    while cluster_num>num_clusters: #we are iterating over this until we have combined all of the values into one cluster
+        output_dict[cluster_num]=clusters #we are going to store the number of clusters and cluster values into a dictionary
+        i,j=most_sim_clusters(clusters) #determining which clusters are closest
+        clusters=merging_clusters(i,j,clusters) #merging the two closest clusters together
+        cluster_num=len(clusters) # we want to keep track of the number of cluster we have. This will determine when the while loop stops.
+    return output_dict
 
 
 
@@ -245,15 +244,15 @@ def replace_values(cluster, pickle_input):
         INPUT: The cluster you want to get the PDB names from, the dictionary with the PDB names and similarity metric
         OUTPUT: The cluster with the PDB names
         '''
-new_list = []
-for i in cluster: #for each item in the cluster
-    if isinstance(i, list): #if there are nested list, unnest the list
-        new_list.append(replace_values(i, pickle_input)) #replace the similarity metric with the PDB name
-    elif i in pickle_input:
-        new_list.append(pickle_input.get(i)) #add values onto the new list
-    else:
-        new_list.append(i)
-    return new_list
+    new_list = []
+    for i in cluster: #for each item in the cluster
+        if isinstance(i, list): #if there are nested list, unnest the list
+            new_list.append(replace_values(i, pickle_input)) #replace the similarity metric with the PDB name
+        elif i in pickle_input:
+            new_list.append(pickle_input.get(i)) #add values onto the new list
+        else:
+            new_list.append(i)
+        return new_list
 
 
 def return_cluster(distance_dict, num_clusters, pickle_input):
@@ -262,11 +261,11 @@ def return_cluster(distance_dict, num_clusters, pickle_input):
         INPUT: The dictionary with # of clusters:clusters, the number of clusters you want to look at, and the dictionary with the PDB names and similarity metric.
         OUTPUT: List of the cluster with the similarity metrics and PDB name.
         '''
-for key, value in distance_dict.items():
-    if key==num_clusters:
-        cluster=value
-    pdb_names=replace_values(cluster, pickle_input)
-return pdb_names, cluster
+    for key, value in distance_dict.items():
+        if key==num_clusters:
+            cluster=value
+        pdb_names=replace_values(cluster, pickle_input)
+    return pdb_names, cluster
 
 ###comparison functions###
 def jacard_index(cluster1, cluster2):
@@ -278,27 +277,27 @@ def jacard_index(cluster1, cluster2):
     Input: one representative cluster from each algorithm
     Output: Jacard Index
     '''
-union = list(set(cluster1).union(cluster2))
-intersection = list(set(cluster1) & set(cluster2))
-return len(intersection)/len(union)
+    union = list(set(cluster1).union(cluster2))
+    intersection = list(set(cluster1) & set(cluster2))
+    return len(intersection)/len(union)
 
 
 def silhouette(cluster1,cluster2):
 '''
 '''
-mean_cluster1=mean(cluster1) #we want to find the closest cluster to compare this to
-mean_cluster2=mean(cluster2)
-mean_cluster3=mean(cluster3)
+    mean_cluster1=mean(cluster1) #we want to find the closest cluster to compare this to
+    mean_cluster2=mean(cluster2)
+    mean_cluster3=mean(cluster3)
    #find the closest cluster
-clu1_2=math.mean(sqrt((mean_cluster1-mean_cluster2)**2))
-clu1_3=math.mean(sqrt((mean_cluster1-mean_cluster3)**2))
-if min(clu1_2,clu1_3)==clu1_3:
-    cluster2=cluster3
-for i in cluster1:
-    a_list=[]
-    b_list=[]
-    for j in cluster1:
-        a_list.append(math.mean(sqrt((j-i)**2))) #finding the eucledian distance between each values in the same cluster
-    for j in cluster2:
-        b_list.append(math.mean(sqrt((j-i)**2))) #finding the eucledian distance between each values in the other cluster
+    clu1_2=math.mean(sqrt((mean_cluster1-mean_cluster2)**2))
+    clu1_3=math.mean(sqrt((mean_cluster1-mean_cluster3)**2))
+    if min(clu1_2,clu1_3)==clu1_3:
+        cluster2=cluster3
+    for i in cluster1:
+        a_list=[]
+        b_list=[]
+        for j in cluster1:
+            a_list.append(math.mean(sqrt((j-i)**2))) #finding the eucledian distance between each values in the same cluster
+        for j in cluster2:
+            b_list.append(math.mean(sqrt((j-i)**2))) #finding the eucledian distance between each values in the other cluster
 
