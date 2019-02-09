@@ -95,7 +95,6 @@ def assign_new_clusters(dist_list,k1,k2,k3):
     '''This funciton will be used once we iterate over all the items in the entire list, assign them to a cluster and then get the mean of the newly created cluster.
     Input: dictionary with PDB=sim_metric, 3 mean values for each cluster
     Output: 3 means for new cluster, list of 3 clusters
-
     '''
     c_1=[] #creating each cluster
     c_2=[]
@@ -119,9 +118,9 @@ def assign_new_clusters(dist_list,k1,k2,k3):
     return k1,k2,k3,c_1,c_2,c_3 #return the clusters and the new medians & DO IT AGAIN!
 
 def k_median(pickle_input):
-'''
-This function will perform the k median function to return 3 clusters. 
-'''
+
+#This function will perform the k median function to return 3 clusters. 
+
     k1,k2,k3=select_initial_values(pickle_input) #figure out input/output
     for i in range(1000): 
         k1,k2,k3,c_1,c_2,c_3=assign_new_clusters(pickle_input,k1,k2,k3)
