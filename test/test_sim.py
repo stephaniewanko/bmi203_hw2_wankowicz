@@ -8,7 +8,7 @@ from cluster import *
 import os
 
 
-print('testing!')
+print('Starting to test!')
 #testing_test_function(2)
 def test_similarity(location):
     '''
@@ -34,8 +34,10 @@ def test_partition_clustering(similarity_dictionary):
     assert len(cluster1) == 10
 
 #content = pickle.load(open('PDB_HW2.pickle', "rb"))
-test_partition_clustering(content)
+print('Testing Similarity')
 test_similarity('./data')
+test_partition_clustering(content)
+
 def test_hierarchical_clustering():
     '''
     To test the hierarchical algorithm, we are going to run the full algorithm. We are then going to assess the length of the third cluster.
