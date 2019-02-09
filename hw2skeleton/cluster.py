@@ -290,7 +290,7 @@ def silhouette(cluster1,cluster2):
         for j in cluster2:
             b_list.append(math.mean(sqrt((j-i)**2))) #finding the eucledian distance between each values in the other cluster
     s=(mean(a_list)-mean(b_list))/(min(a_list)-min(b_list)
-    return s 
+    #return s 
 
 def jacard_index(cluster1, cluster2):
     '''
