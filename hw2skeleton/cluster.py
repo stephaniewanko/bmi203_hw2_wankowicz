@@ -27,9 +27,10 @@ import pandas as pd
 #    print(num)
 
 
-def similarity_metric(file_location): 
-    print(file_location+"*.pdb")
-    PDB_files=glob.glob(file_location+"*.pdb") #grabbing all of the files within the PDB folder
+def similarity_metric(): 
+    print('/data/*.pdb')
+    PDB_files=glob.glob('/data/*.pdb') #grabbing all of the files within the PDB folder
+    print(PDB_files)
     p = PDBParser(PERMISSIVE=1)
     sim_dict = {}
     for i in PDB_files: #we are iterating over each PDB file in our directory
