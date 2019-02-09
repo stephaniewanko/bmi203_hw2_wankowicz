@@ -40,6 +40,7 @@ def test_hierarchical_clustering(content):
 
 
 content=similarity_metric('./data/')
+print(content)
 print('Testing Similarity')
 test_similarity(content)
 
