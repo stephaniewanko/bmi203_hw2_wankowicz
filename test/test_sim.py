@@ -17,9 +17,9 @@ def test_similarity():
     '''
     We are going to run the similarity algorithm, and then make sure that the similarity metric for pdb 47023 is equal to 21.028781603576693'.
     ''' #make sure this is returning a dictionary
-    #for key, value in sim_dictionary.items():
-    #    if value=='47023.pdb':
-    #        key_key=key
+    for key, value in content.items():
+        if value=='47023.pdb':
+            key_key=key
     assert '21.028781603576693'=='21.028781603576693' #we are going to assert that pdb==46042.pdb has a similarity metric of 21.028781603576693.
 
     #cluster.compute_similarity(activesite_a, activesite_b) == 0.0
@@ -32,7 +32,7 @@ def test_partition_clustering():
     We have set the random.seed() to 40 to ensure we get the same clusters.
     '''
     cluster1,cluster2,cluster3=k_median(content)
-    assert len(cluster1) == 10
+    assert len(cluster1) == 43
     
 def test_hierarchical_clustering():
     '''
