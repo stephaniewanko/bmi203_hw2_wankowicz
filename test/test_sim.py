@@ -31,7 +31,7 @@ def test_partition_clustering():
     To test the parition algorithm, we are going to run the k-medians algorithm. We are then going to assess the length of the third cluster.
     We have set the random.seed() to 40 to ensure we get the same clusters.
     '''
-    cluster1,cluster2,cluster3=k_median(content)
+    cluster1,cluster2,cluster3=k_median('./data/PDB_HW2.pickle')
     assert len(cluster1) == 10
     
 def test_hierarchical_clustering():
@@ -39,7 +39,7 @@ def test_hierarchical_clustering():
     To test the hierarchical algorithm, we are going to run the full algorithm. We are then going to assess the length of the third cluster.
     We have set the random.seed() to 40 to ensure we get the same clusters.
     '''
-    test_cluster=hier_cluster(content,135)
+    test_cluster=hier_cluster('./data/PDB_HW2.pickle',135)
     assert len(test_cluster) == 2
 
 
