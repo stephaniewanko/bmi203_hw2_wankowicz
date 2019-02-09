@@ -8,6 +8,11 @@ import os
 
 print('Starting to test!')
 #testing_test_function(2)
+sys.path.append('data/')
+content=similarity_metric()
+print(content)
+print('Testing Similarity')
+
 def test_similarity():
     '''
     We are going to run the similarity algorithm, and then make sure that the similarity metric for pdb 47023 is equal to 21.028781603576693'.
@@ -38,10 +43,7 @@ def test_hierarchical_clustering(content):
     test_cluster=hier_cluster(content,135)
     assert len(test_cluster) == 2
 
-sys.path.append('data/')
-content=similarity_metric()
-print(content)
-print('Testing Similarity')
+
 
 
 
