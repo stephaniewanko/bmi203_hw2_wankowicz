@@ -176,12 +176,12 @@ def dict_to_list(input_pickle):
     return dist_metrics #returning that list
 
 def most_sim_clusters(master_list):
-'''
-This is going to look at the mediod distance between each existing cluster and determine which two existing clusters are the closest.
-We are deciding which ones are most similar based on the mediod linkage.
-INPUT: List of clusters
-OUTPUT: most closely related clusters
-'''
+    '''
+    This is going to look at the mediod distance between each existing cluster and determine which two existing clusters are the closest.
+    We are deciding which ones are most similar based on the mediod linkage.
+    INPUT: List of clusters
+    OUTPUT: most closely related clusters
+    '''
     min=None #We are initiating this by stating that the minimum is empty.
     for i in master_list: #for every cluster in the master list...
         for j in master_list: #compare to every other cluster in the master list
@@ -216,14 +216,14 @@ def merging_clusters(i,j,input_list):
         return input_list #return the new master cluster list
 
 def hier_cluster(input_dict,num_clusters):
-        '''
-        This funciton will call the input dictionary and the number of clusters you want to cluster to.
-        If you want to cluster all the way up the dendrogram, then select the numb of clusters as 1.
-        It will output a dictionary. To get the values and corresponding PDB names from a specific number of clusters, call the return cluster function.
+    '''
+    This funciton will call the input dictionary and the number of clusters you want to cluster to.
+    If you want to cluster all the way up the dendrogram, then select the numb of clusters as 1.
+    It will output a dictionary. To get the values and corresponding PDB names from a specific number of clusters, call the return cluster function.
 
-        INPUT: The similarity dictionary, the number of clusters you want to cluster to
-        OUTPUT: Dictionary with the number of clusters:list of clusters
-        '''
+    INPUT: The similarity dictionary, the number of clusters you want to cluster to
+    OUTPUT: Dictionary with the number of clusters:list of clusters
+    '''
 
     master_list=dict_to_list(input_dict) #this is function that will convert the input dictionary to a list
     output_dict={} #we are going to store the number of clusters and cluster values into a dictionary
@@ -239,11 +239,11 @@ def hier_cluster(input_dict,num_clusters):
 
 
 def replace_values(cluster, pickle_input):
-        '''
-        This is going to take a list and replace the similarity metric with the PDB name from the original dictionary
-        INPUT: The cluster you want to get the PDB names from, the dictionary with the PDB names and similarity metric
-        OUTPUT: The cluster with the PDB names
-        '''
+    '''
+    This is going to take a list and replace the similarity metric with the PDB name from the original dictionary
+    INPUT: The cluster you want to get the PDB names from, the dictionary with the PDB names and similarity metric
+    OUTPUT: The cluster with the PDB names
+    '''
     new_list = []
     for i in cluster: #for each item in the cluster
         if isinstance(i, list): #if there are nested list, unnest the list
@@ -256,11 +256,11 @@ def replace_values(cluster, pickle_input):
 
 
 def return_cluster(distance_dict, num_clusters, pickle_input):
-        '''
-        This funciton will give you back the data (both PDB names and similairty values) seperated into the number of clusters you want to look at.
-        INPUT: The dictionary with # of clusters:clusters, the number of clusters you want to look at, and the dictionary with the PDB names and similarity metric.
-        OUTPUT: List of the cluster with the similarity metrics and PDB name.
-        '''
+    '''
+    This funciton will give you back the data (both PDB names and similairty values) seperated into the number of clusters you want to look at.
+    INPUT: The dictionary with # of clusters:clusters, the number of clusters you want to look at, and the dictionary with the PDB names and similarity metric.
+    OUTPUT: List of the cluster with the similarity metrics and PDB name.
+    '''
     for key, value in distance_dict.items():
         if key==num_clusters:
             cluster=value
@@ -283,12 +283,12 @@ def jacard_index(cluster1, cluster2):
 
 
 def silhouette(cluster1,cluster2):
-'''
-'''
+    '''
+    '''
     mean_cluster1=mean(cluster1) #we want to find the closest cluster to compare this to
     mean_cluster2=mean(cluster2)
     mean_cluster3=mean(cluster3)
-   #find the closest cluster
+    #find the closest cluster
     clu1_2=math.mean(sqrt((mean_cluster1-mean_cluster2)**2))
     clu1_3=math.mean(sqrt((mean_cluster1-mean_cluster3)**2))
     if min(clu1_2,clu1_3)==clu1_3:
