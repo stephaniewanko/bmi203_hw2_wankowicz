@@ -48,6 +48,6 @@ test_similarity('./data')
 test_partition_clustering(content)
 test_hierarchical_clustering(content)
 
-
+print('Done Testing!')
 
 assert [1]==[1]
