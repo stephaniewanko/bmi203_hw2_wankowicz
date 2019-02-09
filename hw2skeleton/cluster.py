@@ -22,6 +22,8 @@ import re
 import pickle
 import pandas as pd
 
+
+
 #def testing_test_function(num): #SO META
 #    print(num)
 
@@ -72,7 +74,6 @@ We then iterate through all items in the list, determine the square root distanc
 For each item, we assign it to the cluster that it is closest to the mean.
 Once everything has been assigned, we find a new mean for that cluster.
 
-
 '''
 
 
@@ -118,8 +119,11 @@ def assign_new_clusters(dist_list,k1,k2,k3):
     return k1,k2,k3,c_1,c_2,c_3 #return the clusters and the new medians & DO IT AGAIN!
 
 def k_median(pickle_input):
+'''
+This function will perform the k median function to return 3 clusters. 
+'''
     k1,k2,k3=select_initial_values(pickle_input) #figure out input/output
-    for i in range(10): #iterate until ?
+    for i in range(1000): 
         k1,k2,k3,c_1,c_2,c_3=assign_new_clusters(pickle_input,k1,k2,k3)
     return c_1, c_2, c_3
 
@@ -137,3 +141,172 @@ def replace_values(cluster, pickle_input):
         else:
             new_list.append(i)
     return new_list
+
+
+#######hierarchical_clustering#####
+
+'''
+    We are going to to do agglomerative clustering where each item (PDB) starts in its own cluster.
+    We will then iteratively find the most similar clusters, combine them until everything is combined.
+    We are going to use complete linkage, which measures closesness of two clusters by the most dissimilar members.
+    '''
+
+    '''
+    1)iterate over pickle an assign each to its own cluster
+    2)for i in clusters: calculate the distance from each other cluster via . Find the smallest difference. # do you need to calculate these all? Create distance matrix
+    bind those two together, and assign it to cluster 1a
+    3)input the next set of clusters and do it all over again.
+
+    At the end of the clustering algorithm, there is a function that will return the distance values and the pdb names once you give the number of clusters (aka the cut off you want to look at)
+    '''
+
+    def mediod_link(i,j):
+        '''
+        The medido link looks at...
+        i and j should be lists of values that correspond with a cluster
+        Input: 2 list of similarity metrics
+        Output: The eucledian distance between the medians of both lists
+        '''
+        dist=math.sqrt((np.median(j)-np.median(i))**2)
+        return(dist)
+
+    def dict_to_list(input_pickle):
+        '''
+        Since we take in a dictionary, we want to convert that dictionary to a list of the similarity metrics to do the clustering.
+        At the end, we will use the dictionary to hook things back up.
+        '''
+        dist_metrics=list(input_pickle.keys()) #putting the keys into a list
+        return dist_metrics #returning that list
+
+    def most_sim_clusters(master_list):
+        '''
+        This is going to look at the mediod distance between each existing cluster and determine which two existing clusters are the closest.
+        We are deciding which ones are most similar based on the mediod linkage.
+        INPUT: List of clusters
+        OUTPUT: Two cluster that are the most similar
+        '''
+        min=None #We are initiating this by stating that the minimum is empty.
+        for i in master_list: #for every cluster in the master list...
+            for j in master_list: #compare to every other cluster in the master list
+                if any(j) not in i: #determine if j is in i, if so, skip
+                    min_tmp=(mediod_link(i,j)) #determine the mediod link and assign it to the temporary minimum
+                    if i==j: #since we are looping over the list, we want to make sure i and j are not the same value
+                        continue
+                    else:
+                        if min is None: #if this is the first mediant distance you are looking at, assign the min value to the mediod linkage calculation, and i&j
+                            min=min_tmp #assign min value to the temp if the min is empty
+                            i_min=i
+                            j_min=j
+                        elif min_tmp<min: #for each mediod linkage value, if it is less than the stored min value, reassign min value, i & j
+                            min=min_tmp
+                            i_min=i
+                            j_min=j
+                        else: #if the mediod value not smaller than min, keep looping through
+                            continue
+        return i_min, j_min #return the lists that have the minimum mediod linkage
+
+
+def merging_clusters(i,j,input_list):
+        '''
+        This will merege two clusters
+        INPUT: The two clusters you want to merge (i&j) and the master cluster list
+        OUTPUT: An updated master cluster list with the newly merged cluster
+        '''
+        new_cluster=i+j #creating new cluster from the two most similar clusters
+        input_list.remove(i) #remove item from the master cluster list (you are going to put it in the new cluster)
+        input_list.remove(j) #remove item from the master cluster list (you are going to put it in the new cluster)
+        input_list.append(new_cluster) #put the newly merged cluster in with the master cluster list
+        return input_list #return the new master cluster list
+
+def hier_cluster(input_dict,num_clusters):
+        '''
+        This funciton will call the input dictionary and the number of clusters you want to cluster to.
+        If you want to cluster all the way up the dendrogram, then select the numb of clusters as 1.
+        It will output a dictionary. To get the values and corresponding PDB names from a specific number of clusters, call the return cluster function.
+
+        INPUT: The similarity dictionary, the number of clusters you want to cluster to
+        OUTPUT: Dictionary with the number of clusters:list of clusters
+        '''
+
+        master_list=dict_to_list(input_dict) #this is function that will convert the input dictionary to a list
+        output_dict={} #we are going to store the number of clusters and cluster values into a dictionary
+        clusters = [[master_list[i]] for i in range(len(master_list))] #this is going to split every item in the master list into their own cluster since we are doing agglomerative clsutering.
+        cluster_num=len(clusters) #we need to determine the number of clusters that we start with
+        while cluster_num>num_clusters: #we are iterating over this until we have combined all of the values into one cluster
+            output_dict[cluster_num]=clusters #we are going to store the number of clusters and cluster values into a dictionary
+            i,j=most_sim_clusters(clusters) #determining which clusters are closest
+            clusters=merging_clusters(i,j,clusters) #merging the two closest clusters together
+            cluster_num=len(clusters) # we want to keep track of the number of cluster we have. This will determine when the while loop stops.
+        print(output_dict)
+        return output_dict
+
+
+
+def replace_values(cluster, pickle_input):
+        '''
+        This is going to take a list and replace the similarity metric with the PDB name from the original dictionary
+        INPUT: The cluster you want to get the PDB names from, the dictionary with the PDB names and similarity metric
+        OUTPUT: The cluster with the PDB names
+        '''
+        new_list = []
+        for i in cluster: #for each item in the cluster
+            if isinstance(i, list): #if there are nested list, unnest the list
+                  new_list.append(replace_values(i, pickle_input)) #replace the similarity metric with the PDB name
+            elif i in pickle_input:
+                new_list.append(pickle_input.get(i)) #add values onto the new list
+            else:
+                new_list.append(i)
+        return new_list
+
+
+def return_cluster(distance_dict, num_clusters, pickle_input):
+        '''
+        This funciton will give you back the data (both PDB names and similairty values) seperated into the number of clusters you want to look at.
+        INPUT: The dictionary with # of clusters:clusters, the number of clusters you want to look at, and the dictionary with the PDB names and similarity metric.
+        OUTPUT: List of the cluster with the similarity metrics and PDB name.
+        '''
+        for key, value in distance_dict.items():
+            if key==num_clusters:
+                cluster=value
+        pdb_names=replace_values(cluster, pickle_input)
+        #print('pdb_names')
+        #print(pdb_names)
+        return pdb_names, cluster
+
+###comparison functions###
+def jacard_index(cluster1, cluster2):
+    '''
+    To compare the two clustering algorithms, we are using the Jacard Index, which determines the length of the union of the two clusters over the intersection.
+    We are going to the three cluster level.
+    The higher the Jacard index, the better the clusters compare (more intersection per item in the two indexes).
+
+    Input: one representative cluster from each algorithm
+    Output: Jacard Index
+    '''
+    print(type(cluster1))
+    #union=cluster1.union(cluster2)
+    union = list(set(cluster1).union(cluster2))
+    intersection = list(set(cluster1) & set(cluster2))
+
+    return len(intersection)/len(union)
+
+
+def silhouette(cluster1,cluster2):
+'''
+'''
+    mean_cluster1=mean(cluster1) #we want to find the closest cluster to compare this to
+    mean_cluster2=mean(cluster2)
+    mean_cluster3=mean(cluster3)
+    #find the closest cluster
+    clu1_2=math.mean(sqrt((mean_cluster1-mean_cluster2)**2))
+    clu1_3=math.mean(sqrt((mean_cluster1-mean_cluster3)**2))
+    if min(clu1_2,clu1_3)==clu1_3:
+        cluster2=cluster3
+    for i in cluster1:
+        a_list=[]
+        b_list=[]
+        for j in cluster1:
+            a_list.append(math.mean(sqrt((j-i)**2))) #finding the eucledian distance between each values in the same cluster
+        for j in cluster2:
+            b_list.append(math.mean(sqrt((j-i)**2))) #finding the eucledian distance between each values in the other cluster
+
