@@ -33,7 +33,7 @@ def test_partition_clustering(similarity_dictionary):
     cluster1,cluster2,cluster3=cluster.k_median(similarity_dictionary)
     assert len(cluster1) == 10
 
-content = pickle.load(open('PDB_HW2.pickle', "rb"))
+#content = pickle.load(open('PDB_HW2.pickle', "rb"))
 test_partition_clustering(content)
 test_similarity('./data')
 def test_hierarchical_clustering():
