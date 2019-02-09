@@ -26,16 +26,15 @@ def test_similarity():
 
 
 
-def test_partition_clustering(content):
+def test_partition_clustering():
     '''
     To test the parition algorithm, we are going to run the k-medians algorithm. We are then going to assess the length of the third cluster.
     We have set the random.seed() to 40 to ensure we get the same clusters.
     '''
-
     cluster1,cluster2,cluster3=k_median(content)
     assert len(cluster1) == 10
     
-def test_hierarchical_clustering(content):
+def test_hierarchical_clustering():
     '''
     To test the hierarchical algorithm, we are going to run the full algorithm. We are then going to assess the length of the third cluster.
     We have set the random.seed() to 40 to ensure we get the same clusters.
