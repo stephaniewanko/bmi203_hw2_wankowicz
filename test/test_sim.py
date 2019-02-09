@@ -38,8 +38,8 @@ def test_hierarchical_clustering(content):
     test_cluster=hier_cluster(content,135)
     assert len(test_cluster) == 2
 
-
-content=similarity_metric('./data/')
+sys.path.append('data/')
+content=similarity_metric('data/')
 print(content)
 print('Testing Similarity')
 test_similarity(content)
