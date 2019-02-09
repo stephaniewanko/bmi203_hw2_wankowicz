@@ -45,8 +45,8 @@ print('Testing Similarity')
 test_similarity(content)
 
 #running the similarity metric to get the dictionary
-test_partition_clustering(content)
-test_hierarchical_clustering(content)
+#test_partition_clustering(content)
+#test_hierarchical_clustering(content)
 
 print('Done Testing!')
 def test_placeholder():
