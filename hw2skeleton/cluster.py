@@ -28,8 +28,8 @@ import pandas as pd
 
 
 def similarity_metric(): 
-    print('/data/*.pdb')
-    PDB_files=glob.glob('/data/*.pdb') #grabbing all of the files within the PDB folder
+    print('data/*.pdb')
+    PDB_files=glob.glob('data/*.pdb') #grabbing all of the files within the PDB folder
     print(PDB_files)
     p = PDBParser(PERMISSIVE=1)
     sim_dict = {}
