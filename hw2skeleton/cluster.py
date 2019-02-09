@@ -200,20 +200,20 @@ def most_sim_clusters(master_list):
                         j_min=j
                     else: #if the mediod value not smaller than min, keep looping through
                         continue
-return i_min, j_min #return the lists that have the minimum mediod linkage
+    return i_min, j_min #return the lists that have the minimum mediod linkage
 
 
 def merging_clusters(i,j,input_list):
-        '''
-        This will merege two clusters
-        INPUT: The two clusters you want to merge (i&j) and the master cluster list
-        OUTPUT: An updated master cluster list with the newly merged cluster
-        '''
-        new_cluster=i+j #creating new cluster from the two most similar clusters
-        input_list.remove(i) #remove item from the master cluster list (you are going to put it in the new cluster)
-        input_list.remove(j) #remove item from the master cluster list (you are going to put it in the new cluster)
-        input_list.append(new_cluster) #put the newly merged cluster in with the master cluster list
-        return input_list #return the new master cluster list
+    '''
+    This will merege two clusters
+    INPUT: The two clusters you want to merge (i&j) and the master cluster list
+    OUTPUT: An updated master cluster list with the newly merged cluster
+    '''
+    new_cluster=i+j #creating new cluster from the two most similar clusters
+    input_list.remove(i) #remove item from the master cluster list (you are going to put it in the new cluster)
+    input_list.remove(j) #remove item from the master cluster list (you are going to put it in the new cluster)
+    input_list.append(new_cluster) #put the newly merged cluster in with the master cluster list
+    return input_list #return the new master cluster list
 
 def hier_cluster(input_dict,num_clusters):
     '''
