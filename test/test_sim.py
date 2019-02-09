@@ -8,7 +8,7 @@ import os
 
 print('Starting to test!')
 #testing_test_function(2)
-def test_similarity(sim_dictionary):
+def test_similarity():
     '''
     We are going to run the similarity algorithm, and then make sure that the similarity metric for pdb 47023 is equal to 21.028781603576693'.
     ''' #make sure this is returning a dictionary
@@ -21,13 +21,13 @@ def test_similarity(sim_dictionary):
 
 
 
-def test_partition_clustering(similarity_dictionary):
+def test_partition_clustering(content):
     '''
     To test the parition algorithm, we are going to run the k-medians algorithm. We are then going to assess the length of the third cluster.
     We have set the random.seed() to 40 to ensure we get the same clusters.
     '''
 
-    cluster1,cluster2,cluster3=k_median(similarity_dictionary)
+    cluster1,cluster2,cluster3=k_median(content)
     assert len(cluster1) == 10
     
 def test_hierarchical_clustering(content):
