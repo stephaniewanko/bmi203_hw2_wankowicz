@@ -8,11 +8,11 @@ import os
 
 print('Starting to test!')
 #testing_test_function(2)
-sys.path.append('/home/travis/build/stephaniewanko/bmi203_hw2_wankowicz/data/')
+#sys.path.append('/home/travis/build/stephaniewanko/bmi203_hw2_wankowicz/data/')
 content=similarity_metric()
 print(content)
 print('Testing Similarity')
-content = pickle.load(open('PDB_HW2.pickle', "rb"))
+content = pickle.load(open('/home/travis/build/stephaniewanko/bmi203_hw2_wankowicz/data/PDB_HW2.pickle', "rb"))
 def test_similarity():
     '''
     We are going to run the similarity algorithm, and then make sure that the similarity metric for pdb 47023 is equal to 21.028781603576693'.
